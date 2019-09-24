@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+
+	<comment>시스템 프로퍼티 개발용</comment>
+	
+	<entry key="dir.upload.default">C:\\fileupload\\uploadFile\\default</entry>
+	<entry key="dir.upload.excel">C:\\fileupload\\uploadFile\\excel</entry>
+	<entry key="dir.download.excel">C:\\fileupload\\downloadFile\\excel</entry>
+	<entry key="dir.download.excelForm">C:\\fileupload\\downloadFile\\excelForm</entry>
+	
+	<entry key="maxUploadSize">52428800</entry> <!-- 52428800 byte : 50MB -->
+	
+	<entry key="env.server">DEV</entry>
+	<entry key="env.sendMailYn">N</entry>
+	<entry key="env.sendSmsYn">N</entry>
+	
+	<entry key="index">1</entry>
+	<entry key="elementPerPage">10</entry>
+	<entry key="indexPerPage">10</entry>
+</properties>

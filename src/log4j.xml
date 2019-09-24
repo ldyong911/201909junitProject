@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- 프린트 콘솔 로그 -->
+	<appender name="printConsole" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m" />
+		</layout>
+	</appender>
+
+	<!-- 콘솔 로그 -->
+	<appender name="infoConsole" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%5p] %d{hh\:mm s} (%F\:%L) %c{1}.%M \: %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 날짜별 로그 파일 생성(rolling Appender) -->
+	<appender name="rolling" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="log/service.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 특정 패키지 출력 설정 -->
+	<logger name="java.sql.Connection">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.Statement">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.PrepareStatement">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.ResultSet">
+		<level value="TRACE" />
+	</logger>
+
+	<logger name="org.springframework.aop.framework.Cglib2AopProxy">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<level value="WARN" />
+	</logger>
+
+	<!-- System.out.print 대체용 printLogger -->
+	<logger name="printLogger" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="printConsole" />
+	</logger>
+
+	<!-- root 설정 -->
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="infoConsole" />
+		<!-- <appender-ref ref="rolling" /> -->
+	</root>
+</log4j:configuration>

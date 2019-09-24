@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+
+	<comment>DATA SOURCE 개발용</comment>
+	
+	<entry key="jdbc.driverClassName">oracle.jdbc.driver.OracleDriver</entry>
+	<entry key="jdbc.username">wizeSemina</entry>
+	<entry key="jdbc.password">wizeSemina</entry>
+	<entry key="jdbc.url">jdbc:oracle:thin:@localhost:1521:XE</entry>
+	<entry key="jdbc.initialSize">5</entry>
+	<entry key="jdbc.maxActive">10</entry>
+	<entry key="jdbc.validationQuery">SELECT 1 FROM DUAL</entry>
+	
+</properties>

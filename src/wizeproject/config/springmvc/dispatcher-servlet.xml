@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Default Servlet Handler -->
+	<mvc:default-servlet-handler/>
+
+	<!-- HandlerMapping, HandlerAdapter, View -->
+	<mvc:annotation-driven />
+	
+	<!-- @Controller 어노테이션 스캔 -->
+	<context:component-scan base-package="wizeproject.module">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
+	
+	<!-- BeanNameViewResolver 설정 -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>
+	</bean>
+	
+	<!-- 첨부파일 다운로드 -->
+	<!-- <bean id="downloadView" class="wizeproject.framework.view.DownloadView"/> -->
+	
+	<!-- Tiles 설정 -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<!-- 방법1 (junit 테스트 통과 못함, tiles 사용가능, 파일위치는 WEB-INF 하위에 있음) -->
+<!-- 				<value>/WEB-INF/tiles/tiles-defs.xml</value> -->
+				<!-- 방법2 파일을 못찾는경우 file: 뒤에 경로를 넣어주면 인식함(junit 테스트 통과, tiles 사용불가, 파일위치는 WEB-INF 하위에 있음) -->
+<!-- 				<value>file:WebContent/WEB-INF/tiles/tiles-defs.xml</value> -->
+				<!-- 방법3 (junit 테스트 통과, tiles 사용가능, 파일위치는 class 패키지 경로에 있음) -->
+				<value>classpath:wizeproject/config/tiles/tiles-defs.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Tiles 설정 : TilesViewResolver 설정 방법1 -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="order" value="1"/>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+	</bean>
+	
+	<!-- InternalResourceViewResolver 설정 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2"/>
+		<property name="prefix" value="/WEB-INF/view/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- Interceptor 설정 -->
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			어떤 url 요청에 대해 해당 interceptor를 실행할지 url mapping 설정
+			<mvc:mapping path="/**" />
+
+			특정 url 요청에 대해 해당 interceptor를 미적용
+			<mvc:exclude-mapping path="/common/auth/login**"/>
+			<mvc:exclude-mapping path="/common/auth/logout.do"/>
+			<mvc:exclude-mapping path="/system/userMng/join**"/>
+			<mvc:exclude-mapping path="/system/userMng/userIdCheckAjax.do"/>
+			
+			<bean class="wizeproject.framework.interceptor.LoginCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+	
+	<!-- MultiPart -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="#{preferences['maxUploadSize']}" />
+	</bean>
+	
+</beans>

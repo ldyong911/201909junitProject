@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<definition name="layout" template="/WEB-INF/view/layout/layout.jsp">
+		<put-attribute name="title" value="JunitTest"/>
+		<put-attribute name="header" value="/WEB-INF/view/layout/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/view/layout/footer.jsp" />
+	</definition>
+	
+	<!-- common(loginForm) -->
+	<definition name="common/auth/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="body" value="/WEB-INF/view/common/auth/{1}.jsp"/>
+	</definition>
+	
+	<!-- 와일드카드1 -->
+	<definition name="*" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/view/{1}.jsp" />
+	</definition>
+	
+	<!-- 와일드카드2 -->
+	<definition name="*/*" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
+	</definition>
+	
+	<!-- 와일드카드3 -->
+	<definition name="*/*/*" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+</tiles-definitions>
